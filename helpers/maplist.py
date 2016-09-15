@@ -11,10 +11,14 @@ __date__="2015-04-21"
 
 # this version uses a temporarl lingpy path, change it to "lingpy", instead of
 # "lingpyd", but make sure to use the most recent version of lingpy
-from concepticondata import *
-from lingpyd.meaning.glosses import *
-from lingpyd import *
+# from concepticondata import *
+from pyconcepticon.data import *
+from lingpy.meaning.glosses import *
+from lingpy import *
 import sys
+from os.path import abspath, dirname, join
+
+basedir = dirname(abspath(__file__))
 
 # we need a file and stop if we don't get one
 if len(sys.argv) < 2:
@@ -22,12 +26,13 @@ if len(sys.argv) < 2:
     sys.exit()
 
 # path for concepticon-base-list
-cpath = '../concepticondata/concepticon.tsv'
+cpath = join(basedir, '../concepticondata/concepticon.tsv')
 
 # we will allow for a third argument to provide the respective conceptlist as
 # base-list
 if len(sys.argv) >= 3:
-    bpath = "../concepticondata/conceptlists/"+sys.argv[2]+'.tsv'
+    bpath = join(basedir, "../concepticondata/conceptlists",
+            sys.argv[2]+'.tsv')
     baselist = csv2list(bpath)
     
     # find the concepticon-id
